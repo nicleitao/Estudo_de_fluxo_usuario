@@ -1,5 +1,7 @@
 package com.fluxo_front_back.controller;
 import com.fluxo_front_back.model.Usuario;
+import com.fluxo_front_back.repository.UsuarioRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -9,16 +11,17 @@ import org.springframework.web.bind.annotation.*;
 
 public class UsuarioController {
 
-        @PostMapping
-        public Usuario cadastrar(@RequestBody Usuario usuario) {
 
-            System.out.println("Nome: " + usuario.getNome());
-            System.out.println("Email: " + usuario.getEmail());
-            System.out.println("Idade: " + usuario.getIdade());
+    @Autowired
+    private UsuarioRepository usuarioRepository;
 
-            return usuario;
-        }
+    @PostMapping
+    public Usuario cadastrar(@RequestBody Usuario usuario) {
+        // Salva no MySQL e retorna o objeto com o ID gerado pelo banco
+        return usuarioRepository.save(usuario);
     }
+
+}
 
 
 
